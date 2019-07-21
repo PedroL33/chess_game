@@ -28,6 +28,7 @@ class Board
     def add(piece, location)
         @board[location[0]][location[1]] = piece
         piece.pos = location
+        piece.board = self
     end
 
     def remove(piece)
