@@ -26,7 +26,7 @@ class Pawn
             @moves.push(loc[1]) if pieces[1] != nil && pieces[1].class == String && !@moved
         end
 
-        [pieces[2], pieces[3]].each_with_index { |item| @moves.push(item.pos) if item != nil && item.class != String }
+        [pieces[2], pieces[3]].each_with_index { |item| @moves.push(item.pos) if item != nil && item.class != String && item.player != @player}
     
     end
 
