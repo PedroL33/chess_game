@@ -14,17 +14,17 @@ class Rook
     end
 
     def get_moves
-        up = Proc.new { |item| [item[0], item[1] + 1] }
-        down = Proc.new { |item| [item[0], item[1] - 1] }
-        right = Proc.new { |item| [item[0] + 1, item[1]] }
-        left = Proc.new { |item| [item[0] + 1, item[1]] }
-        
         moves = []
-        [up, down, left, right].each do |item|
-            next_pos = item.call(@pos)
-            moves += get_axis(next_pos, item)
+        check = [[0,1], [0,-1], [1,0], [-1,0]]
+        
+        check.each do |item| 
+            proc = Proc.new { |element| [item[0] + element[0], item[1] + element[1]] } 
+            next_pos = proc.call(@pos)
+            moves += get_axis(next_pos, proc)
         end
+
         moves
+        
     end
 
 end

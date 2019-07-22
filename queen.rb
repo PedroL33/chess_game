@@ -1,7 +1,7 @@
-require './get_elements.rb'
-class Bishop
+require './get_elements'
 
-    include Elements 
+class Queen
+    include Elements
 
     attr_accessor :pos, :board
     attr_reader :symbol, :player, :moves
@@ -11,20 +11,19 @@ class Bishop
         @pos = nil
         @board = nil
         @moved = false
-        @symbol = @player == 1 ? "\u{265D}" : "\u{2657}"
+        @symbol = @player == 1 ? "\u{265B}" : "\u{2655}"
     end
 
     def get_moves
         moves = []
 
-        check = [[-1,1], [1,1], [-1,-1], [1,-1]]
-    
+        check = [[0,1], [0,-1], [1,0], [-1,0], [1,1], [1,-1], [-1,-1], [-1,1]]
         check.each do |item|
-            proc = Proc.new{|element| [element[0] - item[0], element[1] - item[1]]} 
+            proc = Proc.new{|element| [element[0] + item[0], element[1] + item[1]]}
             next_item = proc.call(@pos)
             moves += get_axis(next_item, proc)
         end
-        
+
         moves
     end
 
