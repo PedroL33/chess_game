@@ -27,9 +27,10 @@ class Board
 
     def add(piece, location)
         self.board[location[0]][location[1]] = piece
-        piece.pos = location
-        piece.board = self
-        #p self.board
+        if piece.class != String
+            piece.board = self
+            piece.pos = location
+        end
     end
 
     def remove(piece)

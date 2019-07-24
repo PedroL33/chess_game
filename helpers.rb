@@ -37,4 +37,32 @@ module Helpers
         return false
     end
 
+    def checkmate?(king)
+
+        @board.board.each do |item|
+            item.each do |element|
+                
+                if element.class == String || element.player != king.player
+                    next
+                else
+                    element.get_moves.each do |move| 
+
+                        memory = [@board.get(move), element.pos]
+                        @board.move(element, move)
+
+                        if !check?(king)
+                            @board.move(element, memory[1])
+                            @board.add(memory[0], move)
+                            return false 
+                        else
+                            @board.move(element, memory[1])
+                            @board.add(memory[0], move)
+                        end
+                    end
+                end
+            end
+        end
+        return true
+    end
+
 end
