@@ -1,7 +1,7 @@
-require './get_elements.rb'
+require './helpers.rb'
 class Bishop
 
-    include Elements 
+    include Helpers 
 
     attr_accessor :pos, :board
     attr_reader :symbol, :player, :moves

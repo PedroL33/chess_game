@@ -1,5 +1,6 @@
+require './helpers'
 class Knight
-
+    include Helpers
     attr_accessor :pos, :board
     attr_reader :symbol, :player, :moves
 
@@ -16,14 +17,7 @@ class Knight
         moves = []
         check.each { |item|
             new_pos = [@pos[0]+item[0], @pos[1]+item[1]]
-            if !new_pos.any?{|item| item > 7 || item < 0}
-                piece = @board.get(new_pos[0], new_pos[1])
-                if piece.class == String || piece.player != @player
-                    moves.push(new_pos)
-                else 
-                    next
-                end                        
-            end
+            legal?(new_pos) ? moves.push(new_pos) : next                      
         }
         moves
     end

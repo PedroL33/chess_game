@@ -18,7 +18,7 @@ class Pawn
         possible.each { |item| loc.push([item[0] + @pos[0], item[1]+ @pos[1]]) }
         
         pieces = []
-        loc.each{ |item| item[0] < 8 ? pieces.push(@board.get(item[0], item[1])) : pieces.push(nil)}
+        loc.each{ |item| item[0] < 8 ? pieces.push(@board.get(item)) : pieces.push(nil)}
         
         moves = []
         if pieces[0] != nil && pieces[0].class == String

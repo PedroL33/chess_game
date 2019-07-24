@@ -11,8 +11,8 @@ class Board
         str = ""
         (@board.length-1).downto(0) do |i|
             str += "#{i.to_s}|"
-            @board.each_with_index do |item, idx|
-                (@board[idx][i].class==String) ? str += "#{@board[idx][i]}|" : str+="#{@board[idx][i].symbol}|"
+            self.board.each_with_index do |item, idx|
+                (self.board[idx][i].class==String) ? str += "#{self.board[idx][i]}|" : str+="#{self.board[idx][i].symbol}|"
             end
             str += "\n"
         end
@@ -21,14 +21,15 @@ class Board
         print str
     end
 
-    def get(x, y)
-        @board[x][y]
+    def get(location)
+        @board[location[0]][location[1]]
     end
 
     def add(piece, location)
-        @board[location[0]][location[1]] = piece
+        self.board[location[0]][location[1]] = piece
         piece.pos = location
         piece.board = self
+        #p self.board
     end
 
     def remove(piece)
@@ -37,8 +38,8 @@ class Board
     end
 
     def move(piece, location)
-        add(piece, location)
         remove(piece)
+        add(piece, location)
     end
 
 
