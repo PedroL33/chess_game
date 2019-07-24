@@ -3,7 +3,7 @@ require "./helpers"
 class Rook
     include Helpers
     attr_accessor :pos, :board
-    attr_reader :symbol, :player, :moves
+    attr_reader :symbol, :player
 
     def initialize(player)
         @player = player
@@ -15,6 +15,7 @@ class Rook
 
     def get_moves
         moves = []
+
         check = [[0,1], [0,-1], [1,0], [-1,0]]
         
         check.each do |item| 

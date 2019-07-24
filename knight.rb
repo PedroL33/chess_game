@@ -2,13 +2,12 @@ require './helpers'
 class Knight
     include Helpers
     attr_accessor :pos, :board
-    attr_reader :symbol, :player, :moves
+    attr_reader :symbol, :player
 
     def initialize(player)
         @player = player
         @pos = nil
         @board = nil
-        @moved = false
         @symbol = @player == 1 ? "\u{265E}" : "\u{2658}"
     end
 

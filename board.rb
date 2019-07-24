@@ -42,5 +42,4 @@ class Board
         add(piece, location)
     end
 
-
 end

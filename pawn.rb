@@ -1,7 +1,7 @@
 class Pawn
 
     attr_accessor :pos, :board
-    attr_reader :symbol, :player, :moves
+    attr_reader :symbol, :player
 
     def initialize(player)
         @player = player
