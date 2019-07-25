@@ -29,6 +29,7 @@ class Game
             @board.add(Bishop.new(item), [2,y])
             @board.add(Bishop.new(item), [5,y])
             @board.add(Queen.new(item), [3,y])
+
         end
     
         @turn = 1
@@ -46,12 +47,14 @@ class Game
             print "Player #{@turn}, choose a move: "
             response = gets.chomp
             move = response.split(" to ")
+            
             if move.all? { |moves| moves.match(/^[0-7] [0-7]$/) }
                 moves = move.map!{|item| item.split(' ').map!{|item| item = item.to_i } }
-                p moves
                 if @board.get(moves[0]) != '_' && @board.get(moves[0]).player == @turn && @board.get(moves[0]).get_moves.include?(moves[1])
                     location = moves[1]
                     piece = @board.get(moves[0])
+                else 
+                    puts "Not a valid move"
                 end
             else
                 puts "Not a valid move."
@@ -59,22 +62,22 @@ class Game
 
         end
 
-        memory = [piece.pos, @board.get(location)]
 
-        @board.move(piece, location)
-
-        if check?(owner)
-            @board.move(piece, memory[0])
-            @board.add(memory[1], location)
+        if check_and_return(piece, location, owner)
             @board.display
             puts "That move would endanger your king."
             play
-        elsif check?(opponent)
+        else 
+            @board.move(piece, location)
+        end
+        
+        if check?(opponent)
             if checkmate?(opponent)
                 @board.display
                 puts "Checkmate. Player #{@turn} wins!"
             else
                 @board.display
+                puts @board.get([4,0]).moved
                 puts "Check"
                 @turn = @turn == 1 ? 2 : 1
                 play

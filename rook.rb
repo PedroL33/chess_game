@@ -2,7 +2,7 @@ require "./helpers"
 
 class Rook
     include Helpers
-    attr_accessor :pos, :board
+    attr_accessor :pos, :board, :moved
     attr_reader :symbol, :player
 
     def initialize(player)
@@ -23,7 +23,6 @@ class Rook
             next_pos = proc.call(@pos)
             moves += get_axis(next_pos, proc)
         end
-
         moves
         
     end

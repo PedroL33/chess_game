@@ -3,7 +3,7 @@ require './helpers.rb'
 class King 
 
     include Helpers
-    attr_accessor :pos, :board, :moves
+    attr_accessor :pos, :board, :moved
     attr_reader :symbol, :player, :moves
 
     def initialize(player)
@@ -22,18 +22,25 @@ class King
         check.each do |item|
             move = [item[0] + @pos[0], item[1] + @pos[1]]
             if legal?(move)
-                memory = [@pos, move]
-                replace = @board.get(move)
-
-                @board.move(self, move)
-                if !check?(self)
-                    moves.push(move)
-                end
-                @board.move(self, memory[0])
-                @board.move(replace, memory[1]) if replace.class != String
+                moves.push(move) if !check_and_return(@board.get(@pos), move, self)
             end
         end
-        
+
+        if !@moved 
+
+            row = []
+            for i in 0..7
+                row.push(@board.get([i, @pos[1]]))
+            end
+
+            if row[0].class == Rook && row[1,3].all?{ |item| item == '_' } && row[0].moved == false
+                moves.push([@pos[0] - 2, @pos[1]])
+            end 
+            
+            if row[7].class == Rook && row[5..6].all?{ |item| item == '_' } && row[7].moved == false
+                moves.push([@pos[0] + 2, @pos[1]])
+            end
+        end
         moves
     end
 
